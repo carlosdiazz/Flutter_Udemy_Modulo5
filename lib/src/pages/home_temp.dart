@@ -12,24 +12,31 @@ class HomePageTemp extends StatelessWidget {
         title: const Text('Componente Temp'),
       ),
       body: ListView(
-        children: _crearItems(numeros),
+        //children: _crearItems(),
+        children: _crearItemsCortos(),
       ),
     );
   }
 
-  List<Widget> _crearItems(numeros) {
-    List<Widget> lista = [];
-    for (String opciones in numeros) {
-      final tempWidget = ListTile(title: Text(opciones));
-      lista
-        ..add(tempWidget)
-        ..add(Divider());
-    }
+  //List<Widget> _crearItems() {
+  //  List<Widget> lista = [];
+  //  for (String opciones in numeros) {
+  //    final tempWidget = ListTile(title: Text(opciones));
+  //    lista
+  //      ..add(tempWidget)
+  //      ..add(const Divider());
+  //  } return lista; }
 
-    return lista;
-  }
-
-  List<Widget> _crearItemsCortos() {
-    var widgts = numeros.map((item) => null);
-  }
+  List<Widget> _crearItemsCortos() => numeros.map(
+    (item) => Column(
+      children: [
+        ListTile(
+          title: Text(item),
+          subtitle: const Text('Subtitulo'),
+          leading: const Icon(Icons.ac_unit), //Icono que va al inicio
+          trailing: const Icon(Icons.access_alarm_rounded), //Icono que va al final
+          onTap: () {}, //Si queremos una accion apra ejecutar un accion
+        ),
+      ],
+    )).toList();
 }
