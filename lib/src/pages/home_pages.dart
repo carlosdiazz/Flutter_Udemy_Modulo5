@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muchos_componetes/src/providers/menu_provider.dart';
+import 'package:muchos_componetes/src/utils/icono_string_comvert.dart';
 
 class HomePages extends StatelessWidget {
   const HomePages({Key? key}) : super(key: key);
@@ -22,21 +23,23 @@ class HomePages extends StatelessWidget {
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         //print(snapshot.data);
         return ListView(
-          children: _listItems(snapshot.data!),
+          children: _listItems(snapshot.data!, context),
         );
       },
     );
   }
 
-  List<Widget> _listItems(List<dynamic> data) => data.map(
-    (opcion) => Column(
-      children: [
-        ListTile(
-            title: Text(opcion['texto']),
-            leading: const Icon(Icons.abc_outlined),
-            trailing: const Icon(Icons.keyboard_arrow_right),
-            onTap: () {},
-          ),
-        const Divider()
-    ])).toList();
+  List<Widget> _listItems(List<dynamic> data, context) => data
+      .map((opcion) => Column(children: [
+            ListTile(
+              title: Text(opcion['texto']),
+              leading: getIcon(opcion['icon']),
+              trailing: const Icon(Icons.keyboard_arrow_right),
+              onTap: () {
+                Navigator.pushNamed(context, opcion['ruta']);
+              },
+            ),
+            const Divider()
+          ]))
+      .toList();
 }
